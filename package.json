@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/fumyparli/automatic-recording-program-for-webex#readme",
   "dependencies": {
+    "node-schedule": "^2.0.0",
     "puppeteer": "^7.1.0"
   }
 }
