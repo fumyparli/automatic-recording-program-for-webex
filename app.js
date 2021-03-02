@@ -12,8 +12,11 @@ const myEmail = "qkskskm7@g.hongik.ac.kr";
     });
     const page = await browser.newPage();
     await page.goto(webUrl);
-
-    await page.waitFor(3000);
+    await page.waitForSelector("#pbui_iframe");
+    const frame = await page
+        .frames()
+        .find((frame) => frame.name() === "pbui_iframe")
+        .waitForSelector(".style-box-2gTpv");
     await page.keyboard.press(" ");
     await page.keyboard.press("Tab");
     for (let i = 0; i < myEmail.length; i++) {
@@ -21,7 +24,6 @@ const myEmail = "qkskskm7@g.hongik.ac.kr";
     }
     await page.evaluate((myName) => {
         let iframe = document.querySelector("#pbui_iframe");
-        console.log(iframe);
         let newHtml = iframe.contentWindow.document.querySelector(
             ".style-box-2gTpv"
         );
