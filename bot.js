@@ -2,8 +2,12 @@ const puppeteer = require("puppeteer");
 
 module.exports = async (webUrl, myName, myEmail) => {
     const browser = await puppeteer.launch({
+        // executablePath:
+        //     "/applications/google chrome.app/contents/macos/google chrome",
         headless: false,
         devtools: false,
+        args: ["--window-size=1920,1080"],
+        defaultViewport: null,
     });
     const page = await browser.newPage();
     await page.goto(webUrl);
@@ -11,7 +15,7 @@ module.exports = async (webUrl, myName, myEmail) => {
     const frame = await page
         .frames()
         .find((frame) => frame.name() === "pbui_iframe");
-    await frame.waitForSelector(".style-box-2gTpv");
+    await frame.waitForSelector("#guest_next-btn");
     await page.keyboard.press(" ");
     await page.keyboard.press("Tab");
     for (let i = 0; i < myEmail.length; i++) {
@@ -23,7 +27,7 @@ module.exports = async (webUrl, myName, myEmail) => {
             ".style-box-2gTpv"
         );
         let input = newHtml.childNodes[1].childNodes[0];
-        input.value = myName;
+        input.value = "이승범";
         let btn = newHtml.childNodes[3].childNodes[0];
         btn.click();
     }, myName);

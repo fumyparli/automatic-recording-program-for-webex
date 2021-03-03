@@ -1,24 +1,56 @@
 {
-  "name": "automatic_recording_program_for_webex",
+  "name": "hongcro",
   "version": "0.0.1",
   "description": "",
-  "main": "app.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node app.js"
+    "dev": "node app.js",
+    "start": "electron .",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fumyparli/automatic-recording-program-for-webex.git"
-  },
+  "repository": "https://github.com/Raidus/electron-puppeteer-quick-start",
   "author": "fumyparli",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/fumyparli/automatic-recording-program-for-webex/issues"
-  },
-  "homepage": "https://github.com/fumyparli/automatic-recording-program-for-webex#readme",
   "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
     "node-schedule": "^2.0.0",
     "puppeteer": "^7.1.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "electron": "^11.3.0"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "automatic_recording_program"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }

@@ -6,8 +6,9 @@ const webUrl =
 let myName = "이승범";
 const myEmail = "qkskskm7@g.hongik.ac.kr";
 
-let job = schedule.scheduleJob("0 10 18 2 3 *", () => {
-    let now = new Date();
-    console.log("current time: ", now);
-    excuteBot(webUrl, myName, myEmail);
-});
+// let job = schedule.scheduleJob("0 10 18 2 3 *", () => {
+//     let now = new Date();
+//     console.log("current time: ", now);
+//     excuteBot(webUrl, myName, myEmail);
+// });
+excuteBot(webUrl, myName, myEmail);

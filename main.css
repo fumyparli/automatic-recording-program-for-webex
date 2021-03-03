@@ -1,0 +1,61 @@
+body {
+    background-color: #eeefef;
+    width: 100%;
+}
+#container {
+    position: relative;
+    width: 70%;
+    left: 15%;
+    background-color: #ffffff;
+}
+#inputSection {
+    padding-top: 5%;
+}
+.components-wrapper {
+    position: relative;
+    margin: 3%;
+    top: 5%;
+    left: 5%;
+    width: 100%;
+    color: #7c7c7c;
+    overflow: hidden;
+}
+.text-in-component {
+    margin: 0px;
+}
+.input00 {
+    width: 54%;
+    height: 30px;
+    border: 1px solid #ececec;
+    font-weight: 600;
+}
+input::placeholder {
+    font-size: 90%;
+    color: #7c7c7c;
+}
+.button-in-regform {
+    background-color: #17a7e7;
+    color: #ffffff;
+    margin: 40px 5px;
+    margin-left: 0px;
+    width: 13%;
+    height: 40px;
+    text-align: center;
+    border: 0px;
+    outline: 0px;
+}
+.button-in-regform:active {
+    outline: 1px solid darkblue;
+}
+.button-in-input {
+    background-color: gray;
+    color: #ffffff;
+    width: 5%;
+    height: 29px;
+    text-align: center;
+    border: 0px;
+    outline: 0px;
+}
+.button-in-input:active {
+    outline: 1px solid darkblue;
+}
