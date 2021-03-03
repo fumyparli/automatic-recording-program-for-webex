@@ -43,19 +43,20 @@ input::placeholder {
     text-align: center;
     border: 0px;
     outline: 0px;
+    border-radius: 5px;
 }
-.button-in-regform:active {
-    outline: 1px solid darkblue;
+.button-in-regform:active,
+.button-in-input:active {
+    outline: none;
+    box-shadow: 0px 0px 1px 1px darkblue;
 }
 .button-in-input {
-    background-color: gray;
+    background-color: lightslategrey;
     color: #ffffff;
     width: 5%;
     height: 29px;
     text-align: center;
     border: 0px;
     outline: 0px;
-}
-.button-in-input:active {
-    outline: 1px solid darkblue;
+    border-radius: 5px;
 }

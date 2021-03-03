@@ -1,4 +1,10 @@
-const { app, BrowserWindow, ipcMain, ipcRenderer } = require("electron");
+const {
+    app,
+    BrowserWindow,
+    ipcMain,
+    ipcRenderer,
+    inAppPurchase,
+} = require("electron");
 const { allowedNodeEnvironmentFlags } = require("process");
 const executeBot = require("./bot");
 
@@ -17,7 +23,14 @@ app.whenReady().then(createWindow);
 
 ipcMain.on("executeBot", (event, arg) => {
     const data = JSON.parse(arg);
-    executeBot(data.addr0, data.name, data.email);
+    const name = data.name;
+    const email = data.email;
+    const inputs = data.inputs;
+    console.log(inputs, inputs.length);
+    for (let i = 0; i < inputs.length; i++) {
+        executeBot(inputs[i], name, email);
+    }
+
     event.sender.send("done", "task-is-done");
 });
 

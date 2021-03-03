@@ -7,27 +7,23 @@
 </head>
 <body>
     <div id="container">
-        <form>
+        <form onsubmit="return false;">
             <section id="inputSection" class="components-wrapper">
                 <h3 class="text-in-component">이름</h3>
-                <input id="inputName" class="input00" type="text" maxlength="24" placeholder="홍길동" required>
+                <input id="inputName" class="input00" type="text" maxlength="24" tabindex="0" placeholder="홍길동" required>
             </section>
             <section class="components-wrapper">
                 <h3 class="text-in-component">이메일</h3>
-                <input id="inputEmail" class="input00" type="text" maxlength="24" placeholder="abc@abc.com" required>
+                <input id="inputEmail" class="input00" type="text" maxlength="24" tabindex="0" placeholder="abc@abc.com" required>
             </section>
             <section class="components-wrapper">
                 <h3 class="text-in-component">webex주소</h3>
-                <input id="address0" class="input00" type="text" placeholder="https://abc.com/qwe" required>
-                <button id="plusButton" class="button-in-input" type="button">+</button>
-                <button id="minusButton" class="button-in-input" type="button">-</button>
+                <input id="address0" class="input00" type="text" tabindex="0" placeholder="https://abc.com/qwe" required>
+                <button id="plusButton" class="button-in-input" tabindex="-1" type="button">+</button>
+                <button id="minusButton" class="button-in-input" tabindex="-1" type="button">-</button>
             </section>
             <section class="components-wrapper">
-                <h3 class="text-in-component">webex주소</h3>
-                <input id="address1" class="input00" type="text" placeholder="https://abc.com/qwe" required>
-            </section>
-            <section class="components-wrapper">
-                <button class="button-in-regform" type="submit">실행</button>
+                <button class="button-in-regform" tabindex="-1" type="submit">실행</button>
             </section>
         </form>
     </div>

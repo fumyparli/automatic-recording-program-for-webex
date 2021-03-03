@@ -27,7 +27,7 @@ module.exports = async (webUrl, myName, myEmail) => {
             ".style-box-2gTpv"
         );
         let input = newHtml.childNodes[1].childNodes[0];
-        input.value = "이승범";
+        input.value = myName;
         let btn = newHtml.childNodes[3].childNodes[0];
         btn.click();
     }, myName);

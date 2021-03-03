@@ -9,7 +9,10 @@ const btnParent = button.parentNode;
 function plusHandler() {
     btnParent.insertAdjacentHTML(
         "beforebegin",
-        `<section class="components-wrapper"><h3 class="text-in-component">webex주소</h3><input id="address0" class="input00" type="text" placeholder="https://abc.com/qwe" required></section>`
+        `<section class="components-wrapper">
+            <h3 class="text-in-component">webex주소</h3>
+            <input id="address0" class="input00" type="text" tabindex="0" placeholder="https://abc.com/qwe" required>
+        </section>`
     );
 }
 
@@ -28,23 +31,22 @@ button.addEventListener("click", () => {
     let name = document.querySelector("#inputName").value;
     let email = document.querySelector("#inputEmail").value;
     let inputs = [];
-    for (let i = 2; i < form.children.length; i++) {
-        inputs.push(form.children[i]);
+    for (let i = 2; i < form.children.length - 1; i++) {
+        inputs.push(form.children[i].children[1].value);
     }
     let flag = 0;
     for (let i = 0; i < inputs.length; i++) {
-        if (inputs.value === "") {
+        if (inputs[i] === "") {
             flag = 1;
             break;
         }
     }
     if (flag === 0) {
+        let data = { name, email, inputs };
+        console.log(data);
         ipcRenderer.on("done", (arg) => {
             console.log(arg);
         });
-        ipcRenderer.send(
-            "executeBot",
-            `{"name":"${name}","email":"${email}","addr0":"${inputs}"}`
-        );
+        ipcRenderer.send("executeBot", JSON.stringify(data));
     }
 });
