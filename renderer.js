@@ -148,12 +148,12 @@ button.addEventListener("click", () => {
             if (i === 3) {
                 schedules.push([
                     wrapper.children[i].children[5].value,
-                    wrapper.children[i].children[1].value,
+                    wrapper.children[i].children[1].value + "?launchApp=true",
                 ]);
             } else {
                 schedules.push([
                     wrapper.children[i].children[3].value,
-                    wrapper.children[i].children[1].value,
+                    wrapper.children[i].children[1].value + "?launchApp=true",
                 ]);
             }
         }
