@@ -5,53 +5,7 @@ const { dialog, Menu } = remote;
 const button = document.querySelector(".button-in-regform");
 const plusBtn = document.querySelector("#plusButton");
 const minusBtn = document.querySelector("#minusButton");
-const form = document.querySelector("form");
-const btnParent = button.parentNode;
-
-function plusHandler() {
-    btnParent.insertAdjacentHTML(
-        "beforebegin",
-        `<section class="components-wrapper">
-            <h3 class="text-in-component">webex주소</h3>
-            <input id="address0" class="input00" type="text" tabindex="0" placeholder="https://abc.com/qwe" required>
-        </section>`
-    );
-}
-
-function minusHandler() {
-    if (form.children.length > 4) {
-        const nodeToRemove = form.children[form.children.length - 2];
-        console.log("delete: ", nodeToRemove);
-        form.removeChild(nodeToRemove);
-    }
-}
-
-plusBtn.addEventListener("click", plusHandler);
-minusBtn.addEventListener("click", minusHandler);
-
-button.addEventListener("click", () => {
-    let name = document.querySelector("#inputName").value;
-    let email = document.querySelector("#inputEmail").value;
-    let inputs = [];
-    for (let i = 2; i < form.children.length - 1; i++) {
-        inputs.push(form.children[i].children[1].value);
-    }
-    let flag = 0;
-    for (let i = 0; i < inputs.length; i++) {
-        if (inputs[i] === "") {
-            flag = 1;
-            break;
-        }
-    }
-    if (flag === 0) {
-        let data = { name, email, inputs };
-        console.log(data);
-        ipcRenderer.on("done", (arg) => {
-            console.log(arg);
-        });
-        ipcRenderer.send("executeBot", JSON.stringify(data));
-    }
-});
+const wrapper = document.querySelector("#inputWrapper");
 
 // --------------- recording code -----------------
 
@@ -155,3 +109,66 @@ async function handleStop(e) {
         );
     }
 }
+
+// --------------- front logic code -----------------
+
+function plusHandler() {
+    wrapper.insertAdjacentHTML(
+        "beforeend",
+        `<section class="components-wrapper">
+            <h3 class="text-in-component">webex주소</h3>
+            <input id="address0" class="input00" type="text" tabindex="0" placeholder="https://abc.com/qwe" required>
+            <h3 class="text-in-component">수업시간</h3>
+            <input class="input00 schedule" type="text" tabindex="0" placeholder="ex) 월:9-10,화:13-15,수:17-18">
+            <br>
+        </section>`
+    );
+    wrapper.children[wrapper.children.length - 1].children[1].focus();
+}
+
+function minusHandler() {
+    if (wrapper.children.length > 4) {
+        const nodeToRemove = wrapper.children[wrapper.children.length - 1];
+        console.log("delete: ", nodeToRemove);
+        wrapper.removeChild(nodeToRemove);
+    }
+}
+
+plusBtn.addEventListener("click", plusHandler);
+minusBtn.addEventListener("click", minusHandler);
+
+button.addEventListener("click", () => {
+    let name = document.querySelector("#inputName").value;
+    let email = document.querySelector("#inputEmail").value;
+    let schedules = [];
+    console.log(schedules);
+    for (let i = 3; i < wrapper.children.length; i++) {
+        if (i === 3) {
+            schedules.push([
+                wrapper.children[i].children[5].value,
+                wrapper.children[i].children[1].value,
+            ]);
+        } else {
+            schedules.push([
+                wrapper.children[i].children[3].value,
+                wrapper.children[i].children[1].value,
+            ]);
+        }
+    }
+    let flag = 0;
+    if (name == "" || email == "") flag = 1;
+    for (let i = 0; i < schedules.length; i++) {
+        if (schedules[i][0] === "" || schedules[i][1] === "") {
+            flag = 1;
+            break;
+        }
+    }
+    if (flag === 0) {
+        let data = { name, email, schedules };
+        console.log(data);
+        ipcRenderer.on("done", (arg) => {
+            console.log(arg);
+        });
+        ipcRenderer.send("data", JSON.stringify(data));
+    }
+});

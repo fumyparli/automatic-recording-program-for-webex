@@ -48,6 +48,18 @@ input::placeholder {
     outline: 0px;
     border-radius: 5px;
 }
+.button-in-regform::before {
+    background-color: crimson;
+    color: #ffffff;
+    margin: 40px 5px;
+    margin-left: 0px;
+    width: 13%;
+    height: 40px;
+    text-align: center;
+    border: 0px;
+    outline: 0px;
+    border-radius: 5px;
+}
 .button-in-regform:active,
 .button-in-input:active {
     outline: none;

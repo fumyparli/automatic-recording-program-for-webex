@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 
-module.exports = async (webUrl, myName, myEmail) => {
+module.exports = async (webUrl, myName, myEmail, runningTime) => {
     const browser = await puppeteer.launch({
         // executablePath:
         //     "/applications/google chrome.app/contents/macos/google chrome",
@@ -49,4 +49,8 @@ module.exports = async (webUrl, myName, myEmail) => {
         );
         btn.click();
     });
+    setTimeout(() => {
+        console.log("browser close");
+        browser.close();
+    }, runningTime * 1000 - 3000);
 };

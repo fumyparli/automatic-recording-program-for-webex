@@ -9,51 +9,32 @@
 <body>
     <div id="container">
         <form onsubmit="return false;">
-            <section id="inputSection" class="components-wrapper">
-                <h3 class="text-in-component">이름</h3>
-                <input id="inputName" class="input00" type="text" maxlength="24" tabindex="0" placeholder="홍길동" required>
-            </section>
+            <div id="inputWrapper">
+                <section id="inputSection" class="components-wrapper">
+                    <h3 class="text-in-component">이름</h3>
+                    <input id="inputName" class="input00" type="text" maxlength="24" tabindex="0" placeholder="홍길동" required>
+                </section>
+                <section class="components-wrapper">
+                    <h3 class="text-in-component">이메일</h3>
+                    <input id="inputEmail" class="input00" type="text" maxlength="24" tabindex="0" placeholder="abc@abc.com" required>
+                </section>
+                <section class="components-wrapper">
+                    <br>
+                    <h2>수업의 주소와 시간을 입력하세요.</h2>
+                </section>
+                <section class="components-wrapper">
+                    <h3 class="text-in-component">webex주소</h3>
+                    <input id="address0" class="input00" type="text" tabindex="0" placeholder="https://abc.com/qwe" required>
+                    <button id="plusButton" class="button-in-input" tabindex="-1" type="button">+</button>
+                    <button id="minusButton" class="button-in-input" tabindex="-1" type="button">-</button>
+                    <h3 class="text-in-component">수업시간</h3>
+                    <input class="input00 schedule" type="text" tabindex="0" placeholder="ex) 월:9-10,화:13-15,수:17-18">
+                </section>
+            </div>
             <section class="components-wrapper">
-                <h3 class="text-in-component">이메일</h3>
-                <input id="inputEmail" class="input00" type="text" maxlength="24" tabindex="0" placeholder="abc@abc.com" required>
-            </section>
-            <section class="components-wrapper">
-                <h3 class="text-in-component">webex주소</h3>
-                <input id="address0" class="input00" type="text" tabindex="0" placeholder="https://abc.com/qwe" required>
-                <button id="plusButton" class="button-in-input" tabindex="-1" type="button">+</button>
-                <button id="minusButton" class="button-in-input" tabindex="-1" type="button">-</button>
+                <button class="button-in-regform" tabindex="-1" type="submit">실행</button>
             </section>
         </form>
-        <br/>
-        <section class="components-wrapper">
-            <h2>시간표를 입력하세요.</h2>
-        </section>
-        <section class="components-wrapper">
-            <h3 class="text-in-component">월</h3>
-            <input class="input00" type="text" tabindex="0" placeholder="ex) 9~10,13~15,17~18">
-        </section>
-        <section class="components-wrapper">
-            <h3 class="text-in-component">화</h3>
-            <input class="input00" type="text" tabindex="0">
-        </section><section class="components-wrapper">
-            <h3 class="text-in-component">수</h3>
-            <input class="input00" type="text" tabindex="0">
-        </section><section class="components-wrapper">
-            <h3 class="text-in-component">목</h3>
-            <input class="input00" type="text" tabindex="0">
-        </section><section class="components-wrapper">
-            <h3 class="text-in-component">금</h3>
-            <input class="input00" type="text" tabindex="0">
-        </section><section class="components-wrapper">
-            <h3 class="text-in-component">토</h3>
-            <input class="input00" type="text" tabindex="0">
-        </section><section class="components-wrapper">
-            <h3 class="text-in-component">일</h3>
-            <input class="input00" type="text" tabindex="0">
-        </section>
-        <section class="components-wrapper">
-            <button class="button-in-regform" tabindex="-1" type="submit">실행</button>
-        </section>
 
         <video></video>
         <button id="startBtn" class="button is-primary">Start</button>
