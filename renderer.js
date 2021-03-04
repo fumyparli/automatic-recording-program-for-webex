@@ -176,7 +176,7 @@ button.addEventListener("click", () => {
                 getVideoSources();
                 setTimeout(() => {
                     mediaRecorder.start();
-                }, 3000);
+                }, 5000);
             });
             ipcRenderer.on("stopVideo", (arg) => {
                 console.log("stop받음", arg);

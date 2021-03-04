@@ -51,7 +51,6 @@ module.exports = async (webUrl, myName, myEmail, runningTime, event) => {
         btn.click();
     });
     await frame.waitForSelector(".style-control-bar-2vCte");
-    console.log("finishwait event: ", event);
     event.sender.send("startVideo", "start");
     if (runningTime < 0) runningTime += 60;
     setTimeout(() => {
@@ -60,7 +59,7 @@ module.exports = async (webUrl, myName, myEmail, runningTime, event) => {
         ipcMain.on("stopped", () => {
             browser.close();
         });
-    }, runningTime * 60 - 10000);
+    }, runningTime * 60 * 1000 - 8000);
     ipcMain.on("closeBrowser", (event, arg) => {
         console.log("closeBrowser");
         browser.close();
