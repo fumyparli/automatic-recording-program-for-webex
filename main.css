@@ -1,6 +1,7 @@
 body {
     background-color: #eeefef;
     width: 100%;
+    height: auto;
 }
 #container {
     position: relative;
@@ -13,8 +14,7 @@ body {
 }
 .components-wrapper {
     position: relative;
-    margin: 3%;
-    top: 5%;
+    margin: 0% 3%;
     left: 5%;
     width: 100%;
     color: #7c7c7c;
@@ -48,7 +48,7 @@ input::placeholder {
     outline: 0px;
     border-radius: 5px;
 }
-.button-in-regform::before {
+.clicked-button-in-regform {
     background-color: crimson;
     color: #ffffff;
     margin: 40px 5px;
@@ -60,8 +60,10 @@ input::placeholder {
     outline: 0px;
     border-radius: 5px;
 }
+
 .button-in-regform:active,
-.button-in-input:active {
+.button-in-input:active,
+.clicked-button-in-regform {
     outline: none;
     box-shadow: 0px 0px 1px 1px darkblue;
 }
@@ -75,7 +77,11 @@ input::placeholder {
     outline: 0px;
     border-radius: 5px;
 }
-
+#videoContainer {
+    border: 1px solid lightslategrey;
+    width: 84%;
+    margin-bottom: 50px;
+}
 video {
     width: 100%;
     height: auto;

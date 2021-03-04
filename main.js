@@ -9,6 +9,16 @@ const { allowedNodeEnvironmentFlags } = require("process");
 const executeBot = require("./bot");
 const scheduler = require("node-schedule");
 
+const dayOfWeekMap = {
+    월: "1",
+    화: "2",
+    수: "3",
+    목: "4",
+    금: "5",
+    토: "6",
+    일: "7",
+};
+
 function createWindow() {
     const win = new BrowserWindow({
         width: 1200,
@@ -29,39 +39,22 @@ ipcMain.on("data", (event, arg) => {
     const email = data.email;
     const schedules = data.schedules;
     console.log(schedules);
-    // for (let i = 0; i < schedules.length; i++) {
-    //     let schedule = schedules[i].split(",");
-    //     console.log("schedule: ", schedule);
-    //     for (let j = 0; j < schedule.length; j++) {
-    //         const timeIv = schedule[j].split("-");
-    //         console.log("timeIv: ", timeIv);
-    //     }
-    // }
     for (let i = 0; i < schedules.length; i++) {
         let schedule = schedules[i][0].replace(/ /g, "").split(",");
         let addr = schedules[i][1].replace(/ /g, "");
         console.log("schedule: ", schedule);
         for (let j = 0; j < schedule.length; j++) {
             const timeIv = schedule[j].substr(2).split("-");
-            const dayOfWeek = schedule[j][0];
+            const dayOfWeek = dayOfWeekMap[schedule[j][0]];
             console.log("timeIv: ", timeIv[0], timeIv[1]);
             console.log("addr: ", addr);
-            scheduler.scheduleJob(`${timeIv[0]} * * * * 4`, () => {
-                console.log(`실행: ${timeIv[0]}초`);
-                executeBot(addr, name, email, timeIv[1] - timeIv[0]);
+            scheduler.scheduleJob(`0 0 ${timeIv[0]} * * ${dayOfWeek}`, () => {
+                console.log(`실행: ${timeIv[0]}시간`);
+                executeBot(addr, name, email, timeIv[1] - timeIv[0], event);
             });
+            // executeBot(addr, name, email, 1, event);
         }
     }
-    // for (let i = 0; i < 60; i++) {
-    //     scheduler.scheduleJob(`${i} 25 16 * * 4`, () => {
-    //         console.log(`실행${i}`);
-    //     });
-    // }
-    // for (let i = 0; i < inputs.length; i++) {
-    //     executeBot(inputs[i], name, email);
-    // }
-
-    event.sender.send("done", "task-is-done");
 });
 
 app.on("window-all-closed", () => {

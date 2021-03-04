@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
+const { ipcMain } = require("electron");
 
-module.exports = async (webUrl, myName, myEmail, runningTime) => {
+module.exports = async (webUrl, myName, myEmail, runningTime, event) => {
     const browser = await puppeteer.launch({
         // executablePath:
         //     "/applications/google chrome.app/contents/macos/google chrome",
@@ -49,8 +50,20 @@ module.exports = async (webUrl, myName, myEmail, runningTime) => {
         );
         btn.click();
     });
+    await frame.waitForSelector(".style-control-bar-2vCte");
+    console.log("finishwait event: ", event);
+    event.sender.send("startVideo", "start");
+    // if (runningTime < 0) runningTime += 60;
     setTimeout(() => {
         console.log("browser close");
+        event.sender.send("stopVideo", "stop");
+        ipcMain.on("stopped", () => {
+            browser.close();
+        });
+    }, runningTime * 60 * 60 - 3 * 60);
+    ipcMain.on("closeBrowser", (event, arg) => {
+        console.log("closeBrowser");
         browser.close();
-    }, runningTime * 1000 - 3000);
+        event.sender.send("closed", "ok");
+    });
 };

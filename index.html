@@ -20,7 +20,7 @@
                 </section>
                 <section class="components-wrapper">
                     <br>
-                    <h2>수업의 주소와 시간을 입력하세요.</h2>
+                    <h2>수업의 주소와 시간을 입력하세요. (꼭 양식에 맞추어 작성해주세요!)</h2>
                 </section>
                 <section class="components-wrapper">
                     <h3 class="text-in-component">webex주소</h3>
@@ -28,21 +28,20 @@
                     <button id="plusButton" class="button-in-input" tabindex="-1" type="button">+</button>
                     <button id="minusButton" class="button-in-input" tabindex="-1" type="button">-</button>
                     <h3 class="text-in-component">수업시간</h3>
-                    <input class="input00 schedule" type="text" tabindex="0" placeholder="ex) 월:9-10,화:13-15,수:17-18">
+                    <input class="input00 schedule" type="text" tabindex="0" placeholder="ex) 월:9-10,화:13-15,수:17-18" required>
                 </section>
             </div>
             <section class="components-wrapper">
                 <button class="button-in-regform" tabindex="-1" type="submit">실행</button>
             </section>
         </form>
-
-        <video></video>
-        <button id="startBtn" class="button is-primary">Start</button>
-        <button id="stopBtn" class="button is-warning">Stop</button>
-        <hr />
-        <button id="videoSelectBtn" class="button is-text">
-            Choose a Video Source
-        </button>
+        <section class="components-wrapper">
+            screen
+            <div id="videoContainer">
+                <video></video>
+            </div>
+        </section>
+        
     </div>
     <script src="./renderer.js"></script>
 </html>
