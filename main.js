@@ -52,7 +52,7 @@ ipcMain.on("data", (event, arg) => {
                 console.log(`실행: ${timeIv[0]}분`);
                 executeBot(addr, name, email, timeIv[1] - timeIv[0], event);
             });
-            // executeBot(addr, name, email, 20, event);
+            // executeBot(addr, name, email, 1, event);
         }
     }
 });

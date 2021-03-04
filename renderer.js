@@ -60,7 +60,7 @@ async function getVideoSources() {
 // Change the videoSource window to record
 async function selectSource(source) {
     const constraints = {
-        audio: true,
+        audio: false,
         video: {
             mandatory: {
                 chromeMediaSource: "desktop",
@@ -83,10 +83,7 @@ async function selectSource(source) {
     // Register Event Handlers
     mediaRecorder.ondataavailable = handleDataAvailable;
     mediaRecorder.onstop = handleStop;
-
-    // Updates the UI
 }
-
 // Captures all recorded chunks
 function handleDataAvailable(e) {
     console.log("video data available");
@@ -176,7 +173,7 @@ button.addEventListener("click", () => {
                 getVideoSources();
                 setTimeout(() => {
                     mediaRecorder.start();
-                }, 5000);
+                }, 10000);
             });
             ipcRenderer.on("stopVideo", (arg) => {
                 console.log("stop받음", arg);
