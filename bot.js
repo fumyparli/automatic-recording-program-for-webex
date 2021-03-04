@@ -60,7 +60,7 @@ module.exports = async (webUrl, myName, myEmail, runningTime, event) => {
         ipcMain.on("stopped", () => {
             browser.close();
         });
-    }, (runningTime - 5) * 1000);
+    }, runningTime * 60 - 10000);
     ipcMain.on("closeBrowser", (event, arg) => {
         console.log("closeBrowser");
         browser.close();

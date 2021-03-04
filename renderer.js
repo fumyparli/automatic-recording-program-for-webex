@@ -189,11 +189,16 @@ button.addEventListener("click", () => {
         }
     } else {
         console.log("중지버튼 누름");
-        mediaRecorder.stop();
-        ipcRenderer.on("closed", () => {
+        if (mediaRecorder !== undefined) {
+            mediaRecorder.stop();
+            ipcRenderer.on("closed", () => {
+                button.className = "button-in-regform";
+                button.textContent = "실행";
+            });
+            ipcRenderer.send("closeBrowser");
+        } else {
             button.className = "button-in-regform";
             button.textContent = "실행";
-        });
-        ipcRenderer.send("closeBrowser");
+        }
     }
 });
