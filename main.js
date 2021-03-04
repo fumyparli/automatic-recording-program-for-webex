@@ -14,6 +14,7 @@ function createWindow() {
         height: 800,
         webPreferences: {
             nodeIntegration: true,
+            enableRemoteModule: true,
         },
     });
     win.loadFile("index.html");

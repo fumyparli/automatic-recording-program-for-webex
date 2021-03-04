@@ -20,6 +20,9 @@ body {
     color: #7c7c7c;
     overflow: hidden;
 }
+h2 {
+    color: #000000;
+}
 .text-in-component {
     margin: 0px;
 }
@@ -59,4 +62,9 @@ input::placeholder {
     border: 0px;
     outline: 0px;
     border-radius: 5px;
+}
+
+video {
+    width: 100%;
+    height: auto;
 }
