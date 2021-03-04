@@ -53,7 +53,7 @@ module.exports = async (webUrl, myName, myEmail, runningTime, event) => {
     await frame.waitForSelector(".style-control-bar-2vCte");
     console.log("finishwait event: ", event);
     event.sender.send("startVideo", "start");
-    // if (runningTime < 0) runningTime += 60;
+    if (runningTime < 0) runningTime += 60;
     setTimeout(() => {
         console.log("browser close");
         event.sender.send("stopVideo", "stop");
