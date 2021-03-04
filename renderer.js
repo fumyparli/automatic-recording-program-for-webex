@@ -2,6 +2,7 @@ const { ipcRenderer, desktopCapturer, remote } = require("electron");
 const { dialog, Menu } = remote;
 const fs = require("fs");
 const os = require("os");
+const { allowedNodeEnvironmentFlags } = require("process");
 
 const button = document.querySelector(".button-in-regform");
 const plusBtn = document.querySelector("#plusButton");
@@ -148,12 +149,12 @@ button.addEventListener("click", () => {
             if (i === 3) {
                 schedules.push([
                     wrapper.children[i].children[5].value,
-                    wrapper.children[i].children[1].value,
+                    wrapper.children[i].children[1].value + "?launchApp=true",
                 ]);
             } else {
                 schedules.push([
                     wrapper.children[i].children[3].value,
-                    wrapper.children[i].children[1].value,
+                    wrapper.children[i].children[1].value + "?launchApp=true",
                 ]);
             }
         }

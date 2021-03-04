@@ -48,11 +48,11 @@ ipcMain.on("data", (event, arg) => {
             const dayOfWeek = dayOfWeekMap[schedule[j][0]];
             console.log("timeIv: ", timeIv[0], timeIv[1]);
             console.log("addr: ", addr);
-            scheduler.scheduleJob(`0 0 ${timeIv[0]} * * ${dayOfWeek}`, () => {
-                console.log(`실행: ${timeIv[0]}시간`);
-                executeBot(addr, name, email, timeIv[1] - timeIv[0], event);
-            });
-            // executeBot(addr, name, email, 1, event);
+            // scheduler.scheduleJob(`0 0 ${timeIv[0]} * * ${dayOfWeek}`, () => {
+            //     console.log(`실행: ${timeIv[0]}시간`);
+            //     executeBot(addr, name, email, timeIv[1] - timeIv[0], event);
+            // });
+            executeBot(addr, name, email, 20, event);
         }
     }
 });
