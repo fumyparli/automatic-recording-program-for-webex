@@ -59,7 +59,7 @@ async function getVideoSources() {
 // Change the videoSource window to record
 async function selectSource(source) {
     const constraints = {
-        audio: false,
+        audio: true,
         video: {
             mandatory: {
                 chromeMediaSource: "desktop",
