@@ -51,19 +51,16 @@ module.exports = async (webUrl, myName, myEmail, runningTime, event) => {
         btn.click();
     });
     await frame.waitForSelector(".style-control-bar-2vCte");
-    console.log("finishwait event: ", event);
     event.sender.send("startVideo", "start");
-    // if (runningTime < 0) runningTime += 60;
     setTimeout(() => {
         console.log("browser close");
-        event.sender.send("stopVideo", "stop");
+        event.sender.send("stopVideo");
         ipcMain.on("stopped", () => {
             browser.close();
         });
-    }, runningTime * 60 * 60 - 3 * 60);
-    ipcMain.on("closeBrowser", (event, arg) => {
+    }, runningTime * 1000 - 15000);
+    ipcMain.on("closeBrowser", () => {
         console.log("closeBrowser");
         browser.close();
-        event.sender.send("closed", "ok");
     });
 };

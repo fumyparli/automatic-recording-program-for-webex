@@ -1,4 +1,9 @@
 node_modules
 package-lock.json
 tempCodeRunnerFile
+<<<<<<< HEAD
 out
+=======
+out
+.DS_Store
+>>>>>>> test

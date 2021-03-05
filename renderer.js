@@ -2,6 +2,7 @@ const { ipcRenderer, desktopCapturer, remote } = require("electron");
 const { dialog, Menu } = remote;
 const fs = require("fs");
 const os = require("os");
+const { allowedNodeEnvironmentFlags } = require("process");
 
 const button = document.querySelector(".button-in-regform");
 const plusBtn = document.querySelector("#plusButton");
@@ -82,10 +83,7 @@ async function selectSource(source) {
     // Register Event Handlers
     mediaRecorder.ondataavailable = handleDataAvailable;
     mediaRecorder.onstop = handleStop;
-
-    // Updates the UI
 }
-
 // Captures all recorded chunks
 function handleDataAvailable(e) {
     console.log("video data available");
@@ -175,26 +173,32 @@ button.addEventListener("click", () => {
                 getVideoSources();
                 setTimeout(() => {
                     mediaRecorder.start();
-                }, 3000);
+                }, 1000);
             });
-            ipcRenderer.on("stopVideo", (arg) => {
-                console.log("stop받음", arg);
-                mediaRecorder.stop();
-                button.className = "button-in-regform";
-                button.textContent = "실행";
-                ipcRenderer.send("stopped");
+            ipcRenderer.on("stopVideo", () => {
+                console.log("stop받음");
+                if (
+                    mediaRecorder !== undefined &&
+                    mediaRecorder.state !== "inactive"
+                ) {
+                    mediaRecorder.stop();
+                    setTimeout(() => {
+                        ipcRenderer.send("stopped");
+                    }, 1000);
+                }
             });
             ipcRenderer.send("data", JSON.stringify(data));
         }
     } else {
         console.log("중지버튼 누름");
-        if (mediaRecorder !== undefined) {
+        // console.log(mediaRecorder, mediaRecorder.state);
+        if (mediaRecorder !== undefined && mediaRecorder.state !== "inactive") {
             mediaRecorder.stop();
-            ipcRenderer.on("closed", () => {
+            setTimeout(() => {
+                ipcRenderer.send("closeBrowser");
                 button.className = "button-in-regform";
                 button.textContent = "실행";
-            });
-            ipcRenderer.send("closeBrowser");
+            }, 1000);
         } else {
             button.className = "button-in-regform";
             button.textContent = "실행";
