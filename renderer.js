@@ -173,26 +173,32 @@ button.addEventListener("click", () => {
                 getVideoSources();
                 setTimeout(() => {
                     mediaRecorder.start();
-                }, 10000);
+                }, 1000);
             });
-            ipcRenderer.on("stopVideo", (arg) => {
-                console.log("stop받음", arg);
-                mediaRecorder.stop();
-                button.className = "button-in-regform";
-                button.textContent = "실행";
-                ipcRenderer.send("stopped");
+            ipcRenderer.on("stopVideo", () => {
+                console.log("stop받음");
+                if (
+                    mediaRecorder !== undefined &&
+                    mediaRecorder.state !== "inactive"
+                ) {
+                    mediaRecorder.stop();
+                    setTimeout(() => {
+                        ipcRenderer.send("stopped");
+                    }, 1000);
+                }
             });
             ipcRenderer.send("data", JSON.stringify(data));
         }
     } else {
         console.log("중지버튼 누름");
-        if (mediaRecorder !== undefined) {
+        // console.log(mediaRecorder, mediaRecorder.state);
+        if (mediaRecorder !== undefined && mediaRecorder.state !== "inactive") {
             mediaRecorder.stop();
-            ipcRenderer.on("closed", () => {
+            setTimeout(() => {
+                ipcRenderer.send("closeBrowser");
                 button.className = "button-in-regform";
                 button.textContent = "실행";
-            });
-            ipcRenderer.send("closeBrowser");
+            }, 1000);
         } else {
             button.className = "button-in-regform";
             button.textContent = "실행";

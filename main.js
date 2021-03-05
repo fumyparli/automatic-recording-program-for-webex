@@ -8,6 +8,7 @@ const {
 const { allowedNodeEnvironmentFlags } = require("process");
 const executeBot = require("./bot");
 const scheduler = require("node-schedule");
+const { isBuffer } = require("util");
 
 const dayOfWeekMap = {
     월: "1",
@@ -40,18 +41,35 @@ ipcMain.on("data", (event, arg) => {
     const schedules = data.schedules;
     console.log(schedules);
     for (let i = 0; i < schedules.length; i++) {
-        let schedule = schedules[i][0].replace(/ /g, "").split(",");
-        let addr = schedules[i][1].replace(/ /g, "");
+        const schedule = schedules[i][0].replace(/ /g, "").split(",");
+        const addr = schedules[i][1].replace(/ /g, "");
         console.log("schedule: ", schedule);
         for (let j = 0; j < schedule.length; j++) {
-            const timeIv = schedule[j].substr(2).split("-");
-            const dayOfWeek = dayOfWeekMap[schedule[j][0]];
-            console.log("timeIv: ", timeIv[0], timeIv[1]);
-            console.log("addr: ", addr);
-            scheduler.scheduleJob(`0 ${timeIv[0]} * * * ${dayOfWeek}`, () => {
-                console.log(`실행: ${timeIv[0]}분`);
-                executeBot(addr, name, email, timeIv[1] - timeIv[0], event);
-            });
+            const dayOfWeek = dayOfWeekMap[schedule[j].split("=")[0]];
+            console.log("dayOfWeek:", dayOfWeek);
+            const tmp_s = schedule[j].substr(2);
+            const timeIv = [tmp_s.split("-")[0], tmp_s.split("-")[1]];
+            console.log("timeIv:", timeIv);
+            const startHour = timeIv[0].split(":")[0];
+            const startMinute = timeIv[0].split(":")[1];
+            console.log("startHour:", startHour);
+            console.log("startMinute:", startMinute);
+            let hourIv = +timeIv[1].split(":")[0] - +startHour;
+            if (hourIv < 0) hourIv += 24;
+            console.log("hourIv:", hourIv);
+            let minuteIv = +timeIv[1].split(":")[1] - +startMinute;
+            if (minuteIv < 0) minuteIv += 60;
+            console.log("minuteIv:", minuteIv);
+            const runningTime = hourIv * 60 * 60 + minuteIv * 60;
+            if (runningTime >= 0) {
+                scheduler.scheduleJob(
+                    `05 ${startMinute} ${startHour} * * ${dayOfWeek}`,
+                    () => {
+                        console.log(`실행: ${startHour}시 ${startMinute}분`);
+                        executeBot(addr, name, email, runningTime, event);
+                    }
+                );
+            }
             // executeBot(addr, name, email, 1, event);
         }
     }

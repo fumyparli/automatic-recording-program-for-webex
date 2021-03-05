@@ -55,14 +55,13 @@ module.exports = async (webUrl, myName, myEmail, runningTime, event) => {
     if (runningTime < 0) runningTime += 60;
     setTimeout(() => {
         console.log("browser close");
-        event.sender.send("stopVideo", "stop");
+        event.sender.send("stopVideo");
         ipcMain.on("stopped", () => {
             browser.close();
         });
-    }, runningTime * 60 * 1000 - 8000);
-    ipcMain.on("closeBrowser", (event, arg) => {
+    }, runningTime * 1000 - 15000);
+    ipcMain.on("closeBrowser", () => {
         console.log("closeBrowser");
         browser.close();
-        event.sender.send("closed", "ok");
     });
 };
