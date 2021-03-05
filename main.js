@@ -34,6 +34,8 @@ function createWindow() {
 
 app.whenReady().then(createWindow);
 
+let job = [];
+
 ipcMain.on("data", (event, arg) => {
     const data = JSON.parse(arg);
     const name = data.name;
@@ -62,16 +64,30 @@ ipcMain.on("data", (event, arg) => {
             console.log("minuteIv:", minuteIv);
             const runningTime = hourIv * 60 * 60 + minuteIv * 60;
             if (runningTime >= 0) {
-                scheduler.scheduleJob(
-                    `05 ${startMinute} ${startHour} * * ${dayOfWeek}`,
-                    () => {
-                        console.log(`실행: ${startHour}시 ${startMinute}분`);
-                        executeBot(addr, name, email, runningTime, event);
-                    }
+                job.push(
+                    scheduler.scheduleJob(
+                        `05 ${startMinute} ${startHour} * * ${dayOfWeek}`,
+                        () => {
+                            console.log(
+                                `실행: ${startHour}시 ${startMinute}분`
+                            );
+                            executeBot(addr, name, email, runningTime, event);
+                        }
+                    )
                 );
             }
             // executeBot(addr, name, email, 1, event);
         }
+    }
+});
+ipcMain.on("cancelJob", () => {
+    console.log(job);
+    let jobLen = job.length;
+    for (let i = 0; i < jobLen; i++) {
+        job[i].cancel();
+    }
+    for (let i = 0; i < jobLen; i++) {
+        job.pop();
     }
 });
 
