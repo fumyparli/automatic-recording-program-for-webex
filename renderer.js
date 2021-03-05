@@ -177,10 +177,7 @@ button.addEventListener("click", () => {
             });
             ipcRenderer.on("stopVideo", () => {
                 console.log("stop받음");
-                if (
-                    mediaRecorder !== undefined &&
-                    mediaRecorder.state !== "inactive"
-                ) {
+                if (mediaRecorder !== undefined) {
                     mediaRecorder.stop();
                     setTimeout(() => {
                         ipcRenderer.send("stopped");
@@ -191,8 +188,9 @@ button.addEventListener("click", () => {
         }
     } else {
         console.log("중지버튼 누름");
+        ipcRenderer.send("cancelJob");
         // console.log(mediaRecorder, mediaRecorder.state);
-        if (mediaRecorder !== undefined && mediaRecorder.state !== "inactive") {
+        if (mediaRecorder !== undefined) {
             mediaRecorder.stop();
             setTimeout(() => {
                 ipcRenderer.send("closeBrowser");
