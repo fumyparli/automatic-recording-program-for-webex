@@ -60,6 +60,11 @@ async function getVideoSources() {
 // Change the videoSource window to record
 async function selectSource(source) {
     const constraints = {
+        // audio: {
+        //     mandatory: {
+        //         chromeMediaSource: "desktop",
+        //     },
+        // },
         audio: false,
         video: {
             mandatory: {
@@ -168,12 +173,10 @@ button.addEventListener("click", () => {
             button.textContent = "중지";
             let data = { name, email, schedules };
             console.log(data);
-            ipcRenderer.on("startVideo", (arg) => {
+            ipcRenderer.on("startVideo", async (arg) => {
                 console.log("start받음", arg);
-                getVideoSources();
-                setTimeout(() => {
-                    mediaRecorder.start();
-                }, 1000);
+                await getVideoSources();
+                mediaRecorder.start();
             });
             ipcRenderer.on("stopVideo", () => {
                 console.log("stop받음");

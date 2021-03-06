@@ -66,7 +66,7 @@ ipcMain.on("data", (event, arg) => {
             if (runningTime >= 0) {
                 job.push(
                     scheduler.scheduleJob(
-                        `05 ${startMinute} ${startHour} * * ${dayOfWeek}`,
+                        `00 ${startMinute} ${startHour} * * ${dayOfWeek}`,
                         () => {
                             console.log(
                                 `실행: ${startHour}시 ${startMinute}분`
@@ -75,8 +75,8 @@ ipcMain.on("data", (event, arg) => {
                         }
                     )
                 );
+                // executeBot(addr, name, email, 1, event);
             }
-            // executeBot(addr, name, email, 1, event);
         }
     }
 });
